@@ -9,6 +9,12 @@ def create_lootDB():
   cursor = con.cursor()
 
   #Create all of the Tables in the Database
+  #Information Table
+  cursor.execute('''CREATE TABLE IF NOT EXISTS `ApplicationInformation` (
+    `Author` VARCHAR(64) NOT NULL,
+    `AppVersion` FLOAT NOT NULL,
+    `DatabaseVersion` FLOAT NOT NULL)''')
+
   #WeaponTypes
   cursor.execute('''CREATE TABLE IF NOT EXISTS `WeaponTypes` (
   `WTypeid` INT NOT NULL,
@@ -31,6 +37,7 @@ def create_lootDB():
   `Sentience` TINYINT NOT NULL,
   `AttackBonus` SMALLINT(2) NULL,
   `DamageBonus` VARCHAR(64) NULL,
+  `CustomProps` VARCHAR(64) NULL,
   `Link` VARCHAR(512) NULL,
   `Picture` BLOB NULL,
   PRIMARY KEY (`Weapid`),
@@ -59,6 +66,7 @@ def create_lootDB():
   `ArmorTypes_ATypeid` INT NOT NULL,
   `Rarity` VARCHAR(32) NOT NULL,
   `Attunement` TINYINT NOT NULL,
+  `CustomProps` VARCHAR(64) NULL,
   `Link` VARCHAR(512) NULL,
   `Picture` BLOB NULL,
   PRIMARY KEY (`Armorid`),
@@ -160,6 +168,11 @@ def create_lootDB():
     REFERENCES `ConsumableItems` (`Consumeid`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)''')
+
+
+  #Set versioning info
+  cursor.execute("INSERT INTO ApplicationInformation (Author, AppVersion, DatabaseVersion) VALUES ('Tyler A. Hinrichs', .01, .2)")
+
 
   #Adding Defaults to type tables
   #Simple Weapons
