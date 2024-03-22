@@ -1,4 +1,4 @@
-def create_lootDB():
+def create_MoneyBagsDB():
   import sqlite3
   from sqlite3 import Error
   import os
